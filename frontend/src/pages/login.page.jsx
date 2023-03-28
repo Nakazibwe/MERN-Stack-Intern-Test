@@ -26,8 +26,6 @@ const Login = () => {
     email: '',
     password: '',
   };
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
   const validationSchema = Yup.object({
     email: Yup.string().required('Required'),
     password: Yup.string().required('Required')
@@ -35,11 +33,11 @@ const Login = () => {
   const onSubmit = async (values, formik) => {
     try {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      const url = 'http://localhost:5001/api/users/auth/login';
+      const url = 'http://localhost:4000/api/users/auth/login';
       const response = await axios.post(url, values);
-      if (response.status == 200 || response.status == 201) {
+      if (response.status === 200) {
         setToken(response.data.token);
-        navigate('/profile', { replace: true });
+        navigate('/', { replace: true });
       }
       formik.setSubmitting(false);
     } catch (error) {
@@ -59,7 +57,7 @@ const Login = () => {
               validationSchema={validationSchema}
             >
               <Form
-                action='http://localhost:5001/api/users/auth/login'
+                action='http://localhost:4000/api/users/auth/login'
                 method='POST'
                 encytpe='application/x-www-form-urlencoded'
               >

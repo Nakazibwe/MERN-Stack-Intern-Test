@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 
 const router = express.Router();
-
+const verifyToken = require('../middlewares/auth.middleware');
 const userController = require('../controllers/user.controller');
 
 // Image upload.
@@ -41,5 +41,8 @@ router.post('/createuser', upload.single('avatar'), userController.createUser);
 
 // Login route.
 router.post('/auth/login', userController.loginUser);
+
+// Get user.
+router.get('/user', verifyToken, userController.getUser);
 
 module.exports = router;

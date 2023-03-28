@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import AuthGuard from './guards/auth.guard';
 import Login from './pages/login.page';
 import Landingpage from './pages/landing.page';
 function App() {
@@ -7,7 +8,7 @@ function App() {
     <div className='App'>
       <Routes>
         <Route path='/login' element={<Login/>} />
-        <Route path='/' element={<Landingpage/>}/>
+        <Route path='/' element={<AuthGuard><Landingpage/></AuthGuard>}/>
       </Routes>
     </div>
   );

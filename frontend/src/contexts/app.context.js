@@ -5,6 +5,8 @@ export const AppContext = createContext({});
 const AppProvider = ({ children }) => {
   const [token, setToken] = useLocalStorage('token', '');
   const [message, setMessage] = useState('');
+  const [data, setData] = useState([]);
+  const [userData, setUserData] = useState({})
 
   return (
     <AppContext.Provider
@@ -13,6 +15,10 @@ const AppProvider = ({ children }) => {
         setToken,
         message,
         setMessage,
+        data,
+        setData,
+        userData,
+        setUserData,
       }}
     >
       {children}

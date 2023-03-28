@@ -94,3 +94,17 @@ exports.loginUser = async (req, res) => {
     return res.json({ error: error.message });
   }
 };
+
+exports.getUser = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const user = await User.findById(id).select('-password -_id');
+    if (!user) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.json({ error: error.message });
+  }
+};
